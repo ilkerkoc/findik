@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="tr" class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Randıman Hesaplayıcı</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="theme-color" content="#0ea5e9" />
+  <style>
+    /* iOS input zoom fix */
+    @supports (-webkit-touch-callout: none) {
+      input, select, textarea { font-size: 16px; }
+    }
+  </style>
+</head>
+<body class="h-full bg-gray-50 text-gray-900 selection:bg-sky-200">
+  <main class="mx-auto max-w-md min-h-full p-4 pb-24">
+    <!-- Header -->
+    <header class="sticky top-0 z-10 -mx-4 mb-4 bg-gray-50/80 backdrop-blur supports-[backdrop-filter]:bg-gray-50/60">
+      <div class="px-4 pt-3 pb-2 flex items-center gap-3">
+        <div class="size-10 rounded-2xl bg-sky-500 grid place-items-center text-white font-bold">R</div>
+        <div>
+          <h1 class="text-xl font-bold leading-tight">Randıman Fiyat Hesaplayıcı</h1>
+          <p class="text-xs text-gray-500">Mobil uyumlu • Tüm tarayıcılarla çalışır</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Card -->
+    <section class="rounded-2xl shadow-sm bg-white p-4 space-y-4">
+      <!-- 50 randıman fiyatı -->
+      <div>
+        <label for="basePrice" class="block text-sm font-medium">50 randıman fiyatı (₺)</label>
+        <div class="mt-1 flex items-center gap-2">
+          <input id="basePrice" inputmode="decimal" placeholder="200" class="w-full rounded-xl border border-gray-300 px-3 py-3 focus:outline-none focus:ring-2 focus:ring-sky-400" />
+          <button id="fillExample" class="shrink-0 rounded-xl px-3 py-2 text-sm border border-gray-200">Örnek</button>
+        </div>
+        <p class="mt-1 text-xs text-gray-500">Örn: 50 randıman için 200 ₺ ise buraya <strong>200</strong> yazın.</p>
+      </div>
+
+      <!-- Vergi checkbox ve referans sabit -->
+      <div class="flex items-center justify-between gap-3">
+        <label class="block text-sm font-medium">Vergi</label>
+        <div class="flex items-center gap-4">
+          <label class="inline-flex items-center gap-2 cursor-pointer">
+            <input id="applyTax" type="checkbox" checked class="h-5 w-5 rounded border-gray-300" />
+            <span class="text-sm">Vergi Uygula (%2,2)</span>
+          </label>
+          <div class="text-xs text-gray-500">Referans randıman: <strong>50</strong></div>
+        </div>
+      </div>
+
+      <!-- Randıman selectbox -->
+      <div>
+        <div class="flex items-center justify-between">
+          <label for="randSelect" class="block text-sm font-medium">Randıman</label>
+          <output id="randOut" class="text-sm font-semibold">50</output>
+        </div>
+        <select id="randSelect" class="mt-2 w-full rounded-xl border border-gray-300 px-3 py-3 focus:outline-none focus:ring-2 focus:ring-sky-400">
+          <!-- options 56 -> 1 -->
+          <option value="56">56</option>
+          <option value="55">55</option>
+          <option value="54">54</option>
+          <option value="53">53</option>
+          <option value="52">52</option>
+          <option value="51">51</option>
+          <option value="50" selected>50</option>
+          <option value="49">49</option>
+          <option value="48">48</option>
+          <option value="47">47</option>
+          <option value="46">46</option>
+          <option value="45">45</option>
+          <option value="44">44</option>
+          <option value="43">43</option>
+          <option value="42">42</option>
+          <option value="41">41</option>
+          <option value="40">40</option>
+          <option value="39">39</option>
+          <option value="38">38</option>
+          <option value="37">37</option>
+          <option value="36">36</option>
+          <option value="35">35</option>
+          <option value="34">34</option>
+          <option value="33">33</option>
+          <option value="32">32</option>
+          <option value="31">31</option>
+          <option value="30">30</option>
+          <option value="29">29</option>
+          <option value="28">28</option>
+          <option value="27">27</option>
+          <option value="26">26</option>
+          <option value="25">25</option>
+          <option value="24">24</option>
+          <option value="23">23</option>
+          <option value="22">22</option>
+          <option value="21">21</option>
+          <option value="20">20</option>
+          <option value="19">19</option>
+          <option value="18">18</option>
+          <option value="17">17</option>
+          <option value="16">16</option>
+          <option value="15">15</option>
+          <option value="14">14</option>
+          <option value="13">13</option>
+          <option value="12">12</option>
+          <option value="11">11</option>
+          <option value="10">10</option>
+          <option value="9">9</option>
+          <option value="8">8</option>
+          <option value="7">7</option>
+          <option value="6">6</option>
+          <option value="5">5</option>
+          <option value="4">4</option>
+          <option value="3">3</option>
+          <option value="2">2</option>
+          <option value="1">1</option>
+        </select>
+      </div>
+
+      <!-- Sonuçlar -->
+      <div class="space-y-3">
+        <div class="grid gap-3 sm:grid-cols-2">
+          <div class="rounded-2xl border border-gray-200 p-3">
+            <div class="text-xs text-gray-500">Net fiyat</div>
+            <div id="net" class="mt-1 text-2xl font-bold">—</div>
+          </div>
+          <div class="rounded-2xl border border-gray-200 p-3">
+            <div class="text-xs text-gray-500">Vergisiz (brüt)</div>
+            <div id="gross" class="mt-1 text-2xl font-bold">—</div>
+          </div>
+        </div>
+
+        <details class="rounded-2xl border border-gray-200 p-3" open>
+          <summary class="cursor-pointer select-none text-sm font-semibold">Adım adım hesap</summary>
+          <ol class="mt-2 space-y-2 text-sm">
+            <li class="flex items-start justify-between gap-4">
+              <span class="text-gray-600">1) Randıman başı değer</span>
+              <span id="perRand" class="font-medium">—</span>
+            </li>
+            <li class="flex items-start justify-between gap-4">
+              <span class="text-gray-600">2) Seçili randıman fiyatı (vergisiz)</span>
+              <span id="grossStep" class="font-medium">—</span>
+            </li>
+            <li class="flex items-start justify-between gap-4">
+              <span class="text-gray-600">3) Vergi düşülmesi</span>
+              <span id="taxStep" class="font-medium">—</span>
+            </li>
+            <li class="flex items-start justify-between gap-4">
+              <span class="text-gray-600">4) Net fiyat</span>
+              <span id="netStep" class="font-semibold">—</span>
+            </li>
+          </ol>
+        </details>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <p class="mt-4 text-center text-xs text-gray-500">
+      Örnek: 200 ₺ (50 randıman), randıman 45, vergi %2,2 → net ≈ 176,04 ₺
+    </p>
+  </main>
+
+  <script>
+    const el = (id) => document.getElementById(id);
+    const nf = new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' });
+
+    const base = el('basePrice');
+    const applyTax = el('applyTax');
+    const randSelect = el('randSelect');
+    const randOut = el('randOut');
+
+    const gross = el('gross');
+    const net = el('net');
+
+    const perRand = el('perRand');
+    const grossStep = el('grossStep');
+    const taxStep = el('taxStep');
+    const netStep = el('netStep');
+
+    const fillExample = el('fillExample');
+
+    // Helpers for safe decimal math using integers (kuruş bazlı)
+    const toCents = (val) => Math.round(parseFloat(String(val).replace(',', '.')) * 100);
+    const fromCents = (c) => c / 100;
+
+    function setDashes() {
+      [gross, net, perRand, grossStep, taxStep, netStep].forEach(n => n.textContent = '—');
+    }
+
+    function calculate() {
+      const baseC = toCents(base.value || 0);        // 50 randıman fiyatı (kuruş)
+      const taxP = applyTax.checked ? 0.022 : 0;     // %2.2 sabit
+      const ref = 50;                                // sabit referans randıman
+      const tgt = parseInt(randSelect.value, 10);
+
+      if (!isFinite(baseC) || !isFinite(tgt) || baseC <= 0 || ref <= 0) {
+        setDashes();
+        return;
+      }
+
+      // 1) randıman başı değer
+      const perRandC = Math.round(baseC / ref);
+      // 2) vergisiz hedef fiyat
+      const grossC = Math.round(perRandC * tgt);
+      // 3) vergi kesintisi
+      const taxCutC = Math.round(grossC * taxP);
+      // 4) net fiyat
+      const netC = grossC - taxCutC;
+
+      gross.textContent = nf.format(fromCents(grossC));
+      net.textContent = nf.format(fromCents(netC));
+
+      perRand.textContent = `${nf.format(fromCents(perRandC))} / randıman`;
+      grossStep.textContent = nf.format(fromCents(grossC));
+      taxStep.textContent = `${nf.format(fromCents(taxCutC))} vergi kesilir`;
+      netStep.textContent = nf.format(fromCents(netC));
+
+      // URL state for paylaş
+      const params = new URLSearchParams({ b: base.value || '', a: applyTax.checked ? '1' : '0', g: String(tgt) });
+      history.replaceState(null, '', `#${params.toString()}`);
+    }
+
+    // Auto-calc on change
+    base.addEventListener('input', calculate);
+    applyTax.addEventListener('change', calculate);
+    randSelect.addEventListener('change', () => { randOut.textContent = randSelect.value; calculate(); });
+
+    // Example fill
+    fillExample.addEventListener('click', () => {
+      base.value = '200';
+      applyTax.checked = true;
+      randSelect.value = '45';
+      randOut.textContent = '45';
+      calculate();
+    });
+
+    // Load state from URL hash if present
+    (function restore() {
+      const hash = location.hash.slice(1);
+      if (!hash) { calculate(); return; }
+      const p = new URLSearchParams(hash);
+      if (p.get('b')) base.value = p.get('b');
+      if (p.get('a')) applyTax.checked = p.get('a') === '1';
+      if (p.get('g')) { randSelect.value = p.get('g'); randOut.textContent = p.get('g'); }
+      calculate();
+    })();
+  </script>
+</body>
+</html>
