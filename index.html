@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Randıman Hesaplayıcı</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <meta name="theme-color" content="#0ea5e9" />
   <style>
     /* iOS input zoom fix */
@@ -14,7 +15,7 @@
   </style>
 </head>
 <body class="h-full bg-gray-50 text-gray-900 selection:bg-sky-200">
-  <main class="mx-auto max-w-md min-h-full p-4 pb-24">
+    <main class="mx-auto max-w-md min-h-full p-4">
     <!-- Header -->
     <header class="sticky top-0 z-10 -mx-4 mb-4 bg-gray-50/80 backdrop-blur supports-[backdrop-filter]:bg-gray-50/60">
       <div class="w-full flex justify-center items-center py-2">
@@ -147,6 +148,22 @@
     <p class="mt-4 text-center text-xs text-gray-500">
       Örnek: 200 ₺ (50 randıman), randıman 45, vergi %2,2 → net ≈ 176,04 ₺
     </p>
+
+     <!-- Buttons -->
+    <div class="mt-8 flex justify-center gap-3 px-4">
+      <button id="calculateButton" class="flex-1 max-w-50 rounded-sm bg-gradient-to-r from-sky-500 to-sky-600 px-2 py-3 text-white font-medium shadow-lg flex items-center justify-center gap-2">
+        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+        </svg>
+        <span>Randıman Hesaplama</span>
+      </button>
+      <button id="shareButton" class="flex-1 max-w-32 rounded-sm bg-gradient-to-r from-green-500 to-green-600 px-2 py-3 text-white font-medium shadow-lg flex items-center justify-center gap-2 ">
+        <span>Paylaş</span>
+        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+        </svg>
+      </button>
+    </div>
   </main>
 
   <script>
@@ -233,6 +250,52 @@
       if (p.get('g')) { randSelect.value = p.get('g'); randOut.textContent = p.get('g'); }
       calculate();
     })();
+
+    // Button handlers
+    const calculateButton = el('calculateButton');
+    const shareButton = el('shareButton');
+
+    calculateButton.addEventListener('click', () => {
+      window.location.href = 'randiman.html';
+    });
+
+    shareButton.addEventListener('click', async () => {
+      try {
+        // Hesaplama verilerini topla
+        const basePrice = base.value || 0;
+        const randiman = parseInt(randSelect.value, 10);
+        const kilo = parseFloat(kacKilo.value || 0);
+        const grossPrice = gross.textContent;
+        const taxPrice = taxAmount.textContent;
+        const netPrice = net.textContent;
+        
+        // Metin oluştur
+        const message = `Randıman Fiyat Hesaplayıcı
+Fiyat: ₺${basePrice}
+Randıman: ${randiman}
+Kaç Kilo Fındık: ${kilo}
+
+Vergisiz (Brüt): ${grossPrice}
+Vergi (%2,2): ${taxPrice}
+Net tutar: ${netPrice}`;
+
+        if (navigator.share) {
+          // Native sharing API kullan (mobil cihazlarda)
+          await navigator.share({
+            title: 'Fındık Fiyat Hesaplama Sonucu',
+            text: message
+          });
+        } else {
+          // Fallback: WhatsApp Web link
+          const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+          window.open(whatsappUrl, '_blank');
+        }
+
+      } catch (error) {
+        console.error('Error sharing:', error);
+        alert('Paylaşım sırasında bir hata oluştu. Lütfen tekrar deneyin.');
+      }
+    });
   </script>
 </body>
 </html>

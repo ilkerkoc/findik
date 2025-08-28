@@ -43,9 +43,19 @@
     </p>
 
     <!-- Buttons -->
-    <div class="fixed bottom-4 left-0 right-0 flex justify-center gap-4">
-      <button id="calculateButton" class="rounded-sm bg-gradient-to-r from-sky-500 to-sky-600 px-6 py-3 text-white font-bold shadow-lg hover:shadow-xl transition-transform transform hover:scale-105">Fiyat Hesaplama</button>
-      <button id="shareButton" class="rounded-sm bg-gradient-to-r from-green-500 to-green-600 px-6 py-3 text-white font-bold shadow-lg hover:shadow-xl transition-transform transform hover:scale-105">Paylaş</button>
+    <div class="fixed bottom-4 left-0 right-0 flex justify-center gap-3 px-4">
+      <button id="calculateButton" class="flex-1 max-w-50 rounded-sm bg-gradient-to-r from-sky-500 to-sky-600 px-2 py-3 text-white font-medium shadow-lg flex items-center justify-center gap-2">
+        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+        </svg>
+        <span>Fiyat Hesaplama</span>
+      </button>
+      <button id="shareButton" class="flex-1 max-w-32 rounded-sm bg-gradient-to-r from-green-500 to-green-600 px-2 py-3 text-white font-medium shadow-lg flex items-center justify-center gap-2 ">
+        <span>Paylaş</span>
+        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+        </svg>
+      </button>
     </div>
   </main>
 
@@ -79,16 +89,84 @@
 
     shareButton.addEventListener('click', async () => {
       try {
-        const dataUrl = await domtoimage.toPng(document.body, {
-          filter: (element) => element.id !== 'calculateButton' && element.id !== 'shareButton',
+        // Butonları ve layout'u geçici olarak düzenle
+        const buttons = document.querySelector('.fixed.bottom-4');
+        const mainElement = document.querySelector('main');
+        const header = document.querySelector('header');
+        
+        // Orijinal değerleri sakla
+        const originalButtonDisplay = buttons.style.display;
+        const originalMainPadding = mainElement.style.paddingBottom;
+        const originalHeaderPosition = header.style.position;
+        
+        // Screenshot için düzenle
+        buttons.style.display = 'none';
+        mainElement.style.paddingBottom = '16px';
+        header.style.position = 'relative';
+
+        // Font'ların ve layout'un tamamen yüklenmesini bekle
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // Layout'u zorla yeniden hesapla
+        mainElement.offsetHeight;
+        document.body.offsetHeight;
+
+        // Screenshot al
+        const canvas = await html2canvas(mainElement, {
+          allowTaint: true,
+          useCORS: true,
+          scale: 2,
+          backgroundColor: '#f9fafb',
+          width: mainElement.offsetWidth,
+          height: mainElement.offsetHeight,
+          scrollX: 0,
+          scrollY: 0,
+          foreignObjectRendering: false,
+          imageTimeout: 15000,
+          removeContainer: true
         });
 
-        // WhatsApp sharing logic
-        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent('Randıman Hesaplama Sonucu')}`;
-        window.open(whatsappUrl, '_blank');
+        // Orijinal değerleri geri yükle
+        buttons.style.display = originalButtonDisplay;
+        mainElement.style.paddingBottom = originalMainPadding;
+        header.style.position = originalHeaderPosition;
+
+        // Canvas'ı blob'a çevir
+        canvas.toBlob(async (blob) => {
+          // Tarih ve saat bilgisini dosya adına ekle
+          const now = new Date();
+          const day = String(now.getDate()).padStart(2, '0');
+          const month = String(now.getMonth() + 1).padStart(2, '0');
+          const year = String(now.getFullYear()).slice(-2); // Son 2 hanesi
+          const hours = String(now.getHours()).padStart(2, '0');
+          const minutes = String(now.getMinutes()).padStart(2, '0');
+          const fileName = `randiman-${day}-${month}-${year}-${hours}-${minutes}.png`;
+
+          if (navigator.share && navigator.canShare && navigator.canShare({files: [new File([blob], fileName, {type: 'image/png'})]})) {
+            // Native sharing API kullan (mobil cihazlarda)
+            const file = new File([blob], fileName, {type: 'image/png'});
+            await navigator.share({
+              title: 'Fındık Randıman Hesaplama Sonucu',
+              text: 'Fındık randıman hesaplama sonucum',
+              files: [file]
+            });
+          } else {
+            // Fallback: WhatsApp Web link
+            const total = parseFloat(totalInput.value) || 0;
+            const healthy = parseFloat(healthyInput.value) || 0;
+            const medium = parseFloat(mediumInput.value) || 0;
+            const effective = healthy + (medium / 2);
+            const randiman = (effective / total) * 100;
+            
+            const message = `Fındık Randıman Hesaplama Sonucu:\nToplam: ${total}g\nSağlam İç: ${healthy}g\nBuruşuk/Orta: ${medium}g\nRandıman: ${randiman.toFixed(2)}%`;
+            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+          }
+        }, 'image/png');
+
       } catch (error) {
         console.error('Error generating image:', error);
-        alert('Bir hata oluştu, lütfen tekrar deneyin.');
+        alert('Görsel oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.');
       }
     });
   </script>
