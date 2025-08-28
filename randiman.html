@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fındık Randıman Hesaplayıcı</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+</head>
+<body class="h-full bg-gray-50 text-gray-900 selection:bg-sky-200">
+  <main class="mx-auto max-w-md min-h-full p-4 pb-24">
+    <!-- Header -->
+    <header class="sticky top-0 z-10 -mx-4 mb-4 bg-gray-50/80 backdrop-blur supports-[backdrop-filter]:bg-gray-50/60">
+      <div class="w-full flex justify-center items-center py-2">
+        <img src="logo2.png" alt="Giresun Nuts Logo" class="h-16" />
+      </div>
+    </header>
+
+    <!-- Card -->
+    <section class="rounded-2xl shadow-sm bg-white p-4 space-y-4">
+     
+      <form id="randimanForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium">Toplam Kabuklu Fındık (g)</label>
+          <input type="number" id="total" class="w-full rounded-xl border border-gray-300 px-3 py-3 focus:outline-none focus:ring-2 focus:ring-sky-400" placeholder="Örn: 250" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Sağlam İç Fındık (g)</label>
+          <input type="number" id="healthy" class="w-full rounded-xl border border-gray-300 px-3 py-3 focus:outline-none focus:ring-2 focus:ring-sky-400" placeholder="Örn: 100" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Buruşuk/Orta Fındık (g)</label>
+          <input type="number" id="medium" class="w-full rounded-xl border border-gray-300 px-3 py-3 focus:outline-none focus:ring-2 focus:ring-sky-400" placeholder="Örn: 20" required>
+        </div>
+      </form>
+      <div id="result" class="mt-4 text-center text-xl font-bold text-gray-700"></div>
+    </section>
+
+    <!-- Footer -->
+    <p class="mt-4 text-center text-xs text-gray-500">
+      Örnek: Toplam 250 g, Sağlam 100 g, Buruşuk 20 g → Randıman ≈ 48.00 %
+    </p>
+
+    <!-- Buttons -->
+    <div class="fixed bottom-4 left-0 right-0 flex justify-center gap-4">
+      <button id="calculateButton" class="rounded-sm bg-gradient-to-r from-sky-500 to-sky-600 px-6 py-3 text-white font-bold shadow-lg hover:shadow-xl transition-transform transform hover:scale-105">Fiyat Hesaplama</button>
+      <button id="shareButton" class="rounded-sm bg-gradient-to-r from-green-500 to-green-600 px-6 py-3 text-white font-bold shadow-lg hover:shadow-xl transition-transform transform hover:scale-105">Paylaş</button>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('randimanForm');
+    const result = document.getElementById('result');
+    const totalInput = document.getElementById('total');
+    const healthyInput = document.getElementById('healthy');
+    const mediumInput = document.getElementById('medium');
+    const calculateButton = document.getElementById('calculateButton');
+    const shareButton = document.getElementById('shareButton');
+
+    function calculateRandiman() {
+      const total = parseFloat(totalInput.value) || 0;
+      const healthy = parseFloat(healthyInput.value) || 0;
+      const medium = parseFloat(mediumInput.value) || 0;
+
+      const effective = healthy + (medium / 2);
+      const randiman = (effective / total) * 100;
+
+      result.textContent = `Randıman: ${randiman.toFixed(2)} %`;
+    }
+
+    totalInput.addEventListener('input', calculateRandiman);
+    healthyInput.addEventListener('input', calculateRandiman);
+    mediumInput.addEventListener('input', calculateRandiman);
+
+    calculateButton.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    shareButton.addEventListener('click', async () => {
+      try {
+        const dataUrl = await domtoimage.toPng(document.body, {
+          filter: (element) => element.id !== 'calculateButton' && element.id !== 'shareButton',
+        });
+
+        // WhatsApp sharing logic
+        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent('Randıman Hesaplama Sonucu')}`;
+        window.open(whatsappUrl, '_blank');
+      } catch (error) {
+        console.error('Error generating image:', error);
+        alert('Bir hata oluştu, lütfen tekrar deneyin.');
+      }
+    });
+  </script>
+</body>
+</html>
