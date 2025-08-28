@@ -4,6 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Randıman Hesaplayıcı</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+  html, body {font-family: "Noto Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";}
+ 
+</style>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <meta name="theme-color" content="#0ea5e9" />
@@ -15,11 +20,11 @@
   </style>
 </head>
 <body class="h-full bg-gray-50 text-gray-900 selection:bg-sky-200">
-    <main class="mx-auto max-w-md min-h-full p-4">
+   <main class="mx-auto max-w-md min-h-full pb-24">
     <!-- Header -->
-    <header class="sticky top-0 z-10 -mx-4 mb-4 bg-gray-50/80 backdrop-blur supports-[backdrop-filter]:bg-gray-50/60">
-      <div class="w-full flex justify-center items-center py-2">
-        <img src="logo.png" alt="Giresun Nuts Logo" class="h-16" />
+    <header class="sticky top-0 z-10 bg-gray-50/80 backdrop-blur supports-[backdrop-filter]:bg-gray-50/60">
+      <div class="w-full flex justify-center items-center">
+        <img src="logo2.png" alt="Giresun Nuts Logo"  />
       </div>
     </header>
 
@@ -159,6 +164,9 @@
 
     <!-- Footer -->
     <div class="mt-4 text-center text-xs text-gray-500">
+      <span class="block">ÇITKIRILDIM - GİRESUNNUTS  </span>
+      <span class="block"> Fındık Alım - Kırma - Kavurma -  Üretim </span>
+      <span class="block"><a target="_blank" href="https://maps.app.goo.gl/tNfn38SqgD2kbdsB6">Küçükköy Mah. Sivas Cad. NO: 97 A, Giresun, Türkiye </a></span>
       <span>Görüntülenme: </span>
       <span id="viewCount">-</span>
     </div>
@@ -301,6 +309,11 @@ Net tutar: ${netPrice}
 
 1 Kg Fındık Brüt: ${perKgGrossPrice}
 1 Kg Fındık Vergi ile: ${perKgNetPrice}
+
+ÇITKIRILDIM - GİRESUNNUTS
+Fındık Alım - Kırma - Kavurma - Üretim
+Küçükköy Mah. Sivas Cad. NO: 97 A, Giresun, Türkiye
+https://maps.app.goo.gl/tNfn38SqgD2kbdsB6
 
 https://hesapla.giresunnuts.com`;
 
