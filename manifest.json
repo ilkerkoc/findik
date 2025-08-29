@@ -1,0 +1,65 @@
+{
+  "name": "Fındık Fiyat ve Randıman Hesaplayıcı",
+  "short_name": "Fındık Hesaplayıcı",
+  "description": "Fındık fiyat ve randıman hesaplama araçları - Giresunnuts",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "utilities", "business"],
+  "lang": "tr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/logo2.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo2.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/logo2.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "dir": "ltr",
+  "iarc_rating_id": "",
+  "shortcuts": [
+    {
+      "name": "Fiyat Hesaplama",
+      "short_name": "Fiyat",
+      "description": "Fındık fiyat hesaplama aracı",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/logo2.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Randıman Hesaplama",
+      "short_name": "Randıman",
+      "description": "Fındık randıman hesaplama aracı",
+      "url": "/randiman.html",
+      "icons": [
+        {
+          "src": "/logo2.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

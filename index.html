@@ -3,8 +3,186 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Randıman Hesaplayıcı</title>
-    <style>
+  
+  <!-- SEO Meta Tags -->
+  <title>Fındık Fiyat Hesaplayıcı | Giresunnuts - Çıtkırıldım | Güncel Fındık Fiyatları</title>
+  <meta name="description" content="Ücretsiz fındık fiyat hesaplayıcı. Randımana göre fındık fiyatı hesaplama, vergi hesaplama ve kg başı maliyet analizi. Güncel fındık fiyatları için iletişime geçin.">
+  <meta name="keywords" content="fındık fiyat hesaplama, fındık fiyatları, randıman fiyat hesaplayıcı, giresun fındık fiyatları, çıtkırıldım, fındık alım fiyatı, fındık vergi hesaplama">
+  <meta name="author" content="Çıtkırıldım - Giresunnuts">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="Turkish">
+  <meta name="geo.region" content="TR-52">
+  <meta name="geo.placename" content="Giresun">
+  <meta name="geo.position" content="40.9128;38.3895">
+  <meta name="ICBM" content="40.9128, 38.3895">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Fındık Fiyat Hesaplayıcı | Giresunnuts - Güncel Fındık Fiyatları">
+  <meta property="og:description" content="Ücretsiz fındık fiyat hesaplayıcı. Randımana göre fındık fiyatı hesaplama ve vergi hesaplama aracı.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hesapla.giresunnuts.com/">
+  <meta property="og:site_name" content="Giresunnuts Fındık Fiyat Hesaplayıcı">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:image" content="https://hesapla.giresunnuts.com/logo2.png">
+  
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Fındık Fiyat Hesaplayıcı | Giresunnuts">
+  <meta name="twitter:description" content="Ücretsiz fındık fiyat hesaplayıcı. Randımana göre fındık fiyatı hesaplama aracı.">
+  <meta name="twitter:image" content="https://hesapla.giresunnuts.com/logo2.png">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://hesapla.giresunnuts.com/">
+  
+  <!-- Business/Local SEO -->
+  <meta name="business:contact_data:street_address" content="Küçükköy Mah. Sivas Cad. NO: 97 A">
+  <meta name="business:contact_data:locality" content="Giresun">
+  <meta name="business:contact_data:region" content="Giresun">
+  <meta name="business:contact_data:postal_code" content="28100">
+  <meta name="business:contact_data:country_name" content="Turkey">
+  <meta name="business:contact_data:phone_number" content="+90 542 183 40 28">
+  
+  <!-- Additional SEO Meta Tags -->
+  <meta name="distribution" content="global">
+  <meta name="revisit-after" content="7 days">
+  <meta name="rating" content="general">
+  <meta name="category" content="Agriculture, Tools, Calculator">
+  <meta name="coverage" content="Worldwide">
+  <meta name="target" content="farmers, hazelnut buyers, agricultural traders">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Fındık Hesaplayıcı">
+  <meta name="application-name" content="Fındık Fiyat Hesaplayıcı">
+  <meta name="msapplication-TileColor" content="#0ea5e9">
+  <meta name="msapplication-TileImage" content="/logo2.png">
+  <meta name="msapplication-square70x70logo" content="/logo2.png">
+  <meta name="msapplication-square150x150logo" content="/logo2.png">
+  <meta name="msapplication-square310x310logo" content="/logo2.png">
+  
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/logo2.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/logo2.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/logo2.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data:; img-src 'self' https: data:; font-src 'self' https: data:;">
+  
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://api.counterapi.dev">
+  
+  <!-- DNS Prefetch -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+  <link rel="dns-prefetch" href="//api.counterapi.dev">
+  
+  <!-- Alternative Languages (if you plan to add) -->
+  <link rel="alternate" hreflang="tr" href="https://hesapla.giresunnuts.com/">
+  <link rel="alternate" hreflang="en" href="https://hesapla.giresunnuts.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://hesapla.giresunnuts.com/">
+  
+  <!-- Microdata for Local Business -->
+  <meta property="business:hours" content="Mo-Su 09:00-18:30">
+  <meta property="business:contact:phone" content="+90 542 183 40 28">
+  <meta property="business:contact:email" content="info@giresunnuts.com">
+  <meta property="place:location:latitude" content="40.9128">
+  <meta property="place:location:longitude" content="38.3895">
+  
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["WebApplication", "LocalBusiness"],
+    "name": "Fındık Fiyat Hesaplayıcı - Giresunnuts",
+    "alternateName": "Çıtkırıldım",
+    "description": "Randımana göre fındık fiyatı hesaplayan ücretsiz online araç ve fındık alım-satım işletmesi",
+    "url": "https://hesapla.giresunnuts.com/",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "TRY"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Küçükköy Mah. Sivas Cad. NO: 97 A",
+      "addressLocality": "Giresun",
+      "addressRegion": "Giresun",
+      "postalCode": "28100",
+      "addressCountry": "TR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 40.9128,
+      "longitude": 38.3895
+    },
+    "telephone": "+90 542 183 40 28",
+    "priceRange": "$",
+    "currenciesAccepted": "TRY",
+    "paymentAccepted": "Cash, Bank Transfer",
+    "openingHours": "Mo-Su 09:00-18:30",
+    "serviceArea": {
+      "@type": "Place",
+      "name": "Giresun, Ordu, Trabzon"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Fındık Ürünleri",
+      "itemListElement": [
+        {
+          "@type": "Product",
+          "name": "Kabuklu Fındık",
+          "category": "Fındık"
+        },
+        {
+          "@type": "Product", 
+          "name": "İç Fındık",
+          "category": "Fındık"
+        },
+        {
+          "@type": "Product",
+          "name": "Kavrulmuş Fındık",
+          "category": "Fındık"
+        }
+      ]
+    },
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Fındık Alımı",
+          "description": "Kabuklu ve iç fındık alımı"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service", 
+          "name": "Fındık Kırma",
+          "description": "Kabuklu fındık kırma hizmeti"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Fındık Kavurma",
+          "description": "Fındık kavurma ve işleme"
+        }
+      }
+    ]
+  }
+  </script>
+  
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
   html, body {font-family: "Noto Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";}
  
